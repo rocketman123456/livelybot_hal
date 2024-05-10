@@ -88,19 +88,19 @@ void SimpleHardwareNode::processStep()
     driver->update();
 
     // special handle to ankle joint
-    // float pos1;
-    // float pos2;
-    // pos1 = driver->getMotor(4).data.pos - driver->getMotor(3).data.pos;
-    // pos2 = driver->getMotor(9).data.pos - driver->getMotor(8).data.pos;
+    float pos1;
+    float pos2;
+    pos1 = driver->getMotor(3).data.pos - driver->getMotor(2).data.pos;
+    pos2 = driver->getMotor(9).data.pos - driver->getMotor(8).data.pos;
 
     // prepate data
     prepareJointMsg(joint_posvel, driver);
-    // joint_posvel.data[4] = pos1;
-    // joint_posvel.data[9] = pos2;
+    joint_posvel.data[3] = pos1;
+    joint_posvel.data[9] = pos2;
 
     prepareJointMsg(joint_state, driver);
-    // joint_state.position[4]  = pos1;
-    // joint_state.position[9]  = pos2;
+    joint_state.position[3]  = pos1;
+    joint_state.position[9]  = pos2;
     joint_state.header.stamp = ros::Time::now();
 
     joint_posvel_pub.publish(joint_posvel);

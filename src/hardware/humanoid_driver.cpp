@@ -34,8 +34,8 @@ void HumanoidDriver::update()
         auto& motor = motors[i];
         auto* state = driver->m_motors[motor.id]->get_current_motor_state();
 
-        motors[i].data.pos = state->position;
-        motors[i].data.vel = state->velocity;
+        motors[i].data.pos = state->position / 180.0 * M_PI;
+        motors[i].data.vel = state->velocity / 180.0 * M_PI;
         motors[i].data.tau = state->torque;
         motors[i].update();
     }
