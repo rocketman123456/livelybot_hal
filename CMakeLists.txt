@@ -19,9 +19,7 @@ include_directories(
     ${pinocchio_INCLUDE_DIRS}
 )
 
-set(rt_LIBRARIES rt)
-set(pthread_LIBRARIES pthread)
-# set(humanoid_SRCS src/*/*.cpp)
+file(GLOB_RECURSE humanoid_SRCS "src/*/**.cpp")
 
 catkin_package(
     LIBRARIES ${PROJECT_NAME}
@@ -30,8 +28,13 @@ catkin_package(
     CATKIN_DEPENDS roscpp roslib std_msgs livelybot_msg livelybot_serial serial
 )
 
-# add_library(${PROJECT_NAME} ${humanoid_SRCS})
-# target_link_libraries(${PROJECT_NAME} rt pthread)
+add_library(${PROJECT_NAME} ${humanoid_SRCS})
+target_link_libraries(${PROJECT_NAME}
+    ${catkin_LIBRARIES}
+    ${pinocchio_LIBRARIES}
+    Eigen3::Eigen
+    rt pthread
+)
 
 add_executable(pino_test src/pino_test.cpp)
 target_link_libraries(pino_test
@@ -40,11 +43,11 @@ target_link_libraries(pino_test
     Eigen3::Eigen
 )
 
-# install(TARGETS ${PROJECT_NAME}
-#     ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#     LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#     RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
-# )
+install(TARGETS ${PROJECT_NAME}
+    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+    RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+)
 
 install(TARGETS pino_test
     RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
