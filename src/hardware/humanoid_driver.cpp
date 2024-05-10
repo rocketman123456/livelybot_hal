@@ -1,12 +1,13 @@
 #include "hardware/humanoid_driver.h"
 
-#include <cassert>
+#include <iostream>
 #include <unistd.h>
 
 void HumanoidDriver::initializeDriver() { driver = std::make_shared<RobotDriver>(); }
 
 void HumanoidDriver::initialize(const std::vector<motor_init_info_t>& infos)
 {
+    std::cout << "motor count: " << infos.size() << std::endl;
     motors.resize(infos.size());
     for (size_t i = 0; i < infos.size(); ++i)
     {

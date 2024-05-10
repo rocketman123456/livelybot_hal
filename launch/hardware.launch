@@ -1,4 +1,5 @@
 <launch>
+    <include file='$(find livelybot_description)/launch/livelybot_description.launch' />
     <node name="livelybot_hardware_node" pkg="livelybot_hardware" type="hardware_node" output="screen"/>
     <!-- <node name="srobot_control" pkg="srobot_control" type="srobot_force_ctrl_test" output="screen"/> -->
 
