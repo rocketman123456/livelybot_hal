@@ -1,41 +1,52 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(livelybot_hardware)
 
+find_package(Eigen3 REQUIRED)
+find_package(pinocchio REQUIRED)
 # Find catkin
 find_package(catkin REQUIRED COMPONENTS
     roscpp
+    roslib
     std_msgs
     livelybot_msg
     livelybot_serial
-    modern_robotics_cpp
     serial
 )
 
 include_directories(
     include
     ${catkin_INCLUDE_DIRS}
+    ${pinocchio_INCLUDE_DIRS}
 )
 
 set(rt_LIBRARIES rt)
 set(pthread_LIBRARIES pthread)
-set(humanoid_SRCS src/*/*.cpp)
+# set(humanoid_SRCS src/*/*.cpp)
 
 catkin_package(
     LIBRARIES ${PROJECT_NAME}
     INCLUDE_DIRS include
     DEPENDS rt pthread
-    CATKIN_DEPENDS roscpp std_msgs livelybot_msg livelybot_serial modern_robotics_cpp serial
+    CATKIN_DEPENDS roscpp roslib std_msgs livelybot_msg livelybot_serial serial
 )
 
-add_library(${PROJECT_NAME} ${humanoid_SRCS})
-target_link_libraries(${PROJECT_NAME} rt pthread)
+# add_library(${PROJECT_NAME} ${humanoid_SRCS})
+# target_link_libraries(${PROJECT_NAME} rt pthread)
 
-add_executable(test_motion src/test_motor.cpp ${humanoid_SRCS})
-target_link_libraries(test_motion ${catkin_LIBRARIES})
+add_executable(pino_test src/pino_test.cpp)
+target_link_libraries(pino_test
+    ${catkin_LIBRARIES}
+    ${pinocchio_LIBRARIES}
+    Eigen3::Eigen
+)
 
-install(TARGETS ${PROJECT_NAME}
-    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+# install(TARGETS ${PROJECT_NAME}
+#     ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#     LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#     RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+# )
+
+install(TARGETS pino_test
     RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
 )
 
