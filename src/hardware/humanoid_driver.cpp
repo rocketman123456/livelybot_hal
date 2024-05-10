@@ -24,7 +24,7 @@ void HumanoidDriver::update()
     for (int i = 0; i < motors.size(); ++i)
     {
         auto& motor = motors[i];
-        driver->m_motors[motor.id]->fresh_cmd(0.0, 0.0, motor.getTorque(), 0.0, 0.0);
+        driver->m_motors[motor.id]->fresh_cmd(0.0, 0.0, motor.data.tau_des, 0.0, 0.0);
     }
 
     driver->motor_send();

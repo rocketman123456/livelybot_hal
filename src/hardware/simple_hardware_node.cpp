@@ -7,39 +7,59 @@ void SimpleHardwareNode::initialize()
     joint_sub        = node.subscribe("/joints_cmd", 1000, &SimpleHardwareNode::handleInput, this);
 
     // prepare data
-    joint_posvel.data.resize(20);
+    joint_posvel.data.resize(40);
 
-    joint_cmd.position.resize(10);
-    joint_cmd.velocity.resize(10);
-    joint_cmd.effort.resize(10);
-    joint_cmd.name.resize(10);
+    joint_cmd.position.resize(20);
+    joint_cmd.velocity.resize(20);
+    joint_cmd.effort.resize(20);
+    joint_cmd.name.resize(20);
 
-    joint_cmd.name[0] = "LeftHipYaw_Joint";
-    joint_cmd.name[1] = "LeftHipRoll_Joint";
-    joint_cmd.name[2] = "LeftHipPitch_Joint";
-    joint_cmd.name[3] = "LeftKnee_Joint";
-    joint_cmd.name[4] = "LeftAnkle_Joint";
-    joint_cmd.name[5] = "RightHipYaw_Joint";
-    joint_cmd.name[6] = "RightHipRoll_Joint";
-    joint_cmd.name[7] = "RightHipPitch_Joint";
-    joint_cmd.name[8] = "RightKnee_Joint";
-    joint_cmd.name[9] = "RightAnkle_Joint";
+    joint_cmd.name[0] = "r_hip_yaw_joint";
+    joint_cmd.name[1] = "r_hip_roll_joint";
+    joint_cmd.name[2] = "r_thigh_joint";
+    joint_cmd.name[3] = "r_calf_joint";
+    joint_cmd.name[4] = "r_ankle_pitch_joint";
+    joint_cmd.name[5] = "r_ankle_roll_joint";
+    joint_cmd.name[6] = "l_hip_yaw_joint";
+    joint_cmd.name[7] = "l_hip_roll_joint";
+    joint_cmd.name[8] = "l_thigh_joint";
+    joint_cmd.name[9] = "l_calf_joint";
+    joint_cmd.name[10] = "l_ankle_pitch_joint";
+    joint_cmd.name[11] = "l_ankle_roll_joint";
+    joint_cmd.name[12] = "r_shoulder_pitch_joint";
+    joint_cmd.name[13] = "r_shoulder_roll_joint";
+    joint_cmd.name[14] = "r_shoulder_yaw_joint";
+    joint_cmd.name[15] = "r_elbow_joint";
+    joint_cmd.name[16] = "l_shoulder_pitch_joint";
+    joint_cmd.name[17] = "l_shoulder_roll_joint";
+    joint_cmd.name[18] = "l_shoulder_yaw_joint";
+    joint_cmd.name[19] = "l_elbow_joint";
 
-    joint_state.position.resize(10);
-    joint_state.velocity.resize(10);
-    joint_state.effort.resize(10);
-    joint_state.name.resize(10);
+    joint_state.position.resize(20);
+    joint_state.velocity.resize(20);
+    joint_state.effort.resize(20);
+    joint_state.name.resize(20);
 
-    joint_state.name[0] = "LeftHipYaw_Joint";
-    joint_state.name[1] = "LeftHipRoll_Joint";
-    joint_state.name[2] = "LeftHipPitch_Joint";
-    joint_state.name[3] = "LeftKnee_Joint";
-    joint_state.name[4] = "LeftAnkle_Joint";
-    joint_state.name[5] = "RightHipYaw_Joint";
-    joint_state.name[6] = "RightHipRoll_Joint";
-    joint_state.name[7] = "RightHipPitch_Joint";
-    joint_state.name[8] = "RightKnee_Joint";
-    joint_state.name[9] = "RightAnkle_Joint";
+    joint_state.name[0] = "r_hip_yaw_joint";
+    joint_state.name[1] = "r_hip_roll_joint";
+    joint_state.name[2] = "r_thigh_joint";
+    joint_state.name[3] = "r_calf_joint";
+    joint_state.name[4] = "r_ankle_pitch_joint";
+    joint_state.name[5] = "r_ankle_roll_joint";
+    joint_state.name[6] = "l_hip_yaw_joint";
+    joint_state.name[7] = "l_hip_roll_joint";
+    joint_state.name[8] = "l_thigh_joint";
+    joint_state.name[9] = "l_calf_joint";
+    joint_state.name[10] = "l_ankle_pitch_joint";
+    joint_state.name[11] = "l_ankle_roll_joint";
+    joint_state.name[12] = "r_shoulder_pitch_joint";
+    joint_state.name[13] = "r_shoulder_roll_joint";
+    joint_state.name[14] = "r_shoulder_yaw_joint";
+    joint_state.name[15] = "r_elbow_joint";
+    joint_state.name[16] = "l_shoulder_pitch_joint";
+    joint_state.name[17] = "l_shoulder_roll_joint";
+    joint_state.name[18] = "l_shoulder_yaw_joint";
+    joint_state.name[19] = "l_elbow_joint";
 }
 
 void SimpleHardwareNode::processStep()
@@ -58,7 +78,7 @@ void SimpleHardwareNode::processStep()
 
     // normal handle
     mutex.read_lock();
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < 20; ++i)
     {
         driver->getMotor(i).setMixedControlInRad(0, 0, joint_cmd.effort[i], 0, 0);
     }
@@ -68,19 +88,19 @@ void SimpleHardwareNode::processStep()
     driver->update();
 
     // special handle to ankle joint
-    float pos1;
-    float pos2;
-    pos1 = driver->getMotor(4).data.pos - driver->getMotor(3).data.pos;
-    pos2 = driver->getMotor(9).data.pos - driver->getMotor(8).data.pos;
+    // float pos1;
+    // float pos2;
+    // pos1 = driver->getMotor(4).data.pos - driver->getMotor(3).data.pos;
+    // pos2 = driver->getMotor(9).data.pos - driver->getMotor(8).data.pos;
 
     // prepate data
     prepareJointMsg(joint_posvel, driver);
-    joint_posvel.data[4] = pos1;
-    joint_posvel.data[9] = pos2;
+    // joint_posvel.data[4] = pos1;
+    // joint_posvel.data[9] = pos2;
 
     prepareJointMsg(joint_state, driver);
-    joint_state.position[4]  = pos1;
-    joint_state.position[9]  = pos2;
+    // joint_state.position[4]  = pos1;
+    // joint_state.position[9]  = pos2;
     joint_state.header.stamp = ros::Time::now();
 
     joint_posvel_pub.publish(joint_posvel);

@@ -28,22 +28,22 @@ int main(int argc, char** argv)
 
     // TODO : read from config file
     spdlog::debug("init motors");
-    motor_infos.emplace_back(0, -1.0, 0);
-    motor_infos.emplace_back(1, 1.0, 0);
-    motor_infos.emplace_back(2, 1.0, 0);
-    motor_infos.emplace_back(3, -1.0, 0);
-    motor_infos.emplace_back(4, 1.0, 0);
     motor_infos.emplace_back(5, -1.0, 0);
+    motor_infos.emplace_back(4, 1.0, 0);
+    motor_infos.emplace_back(3, -1.0, 0);
+    motor_infos.emplace_back(2, 1.0, 0);
+    motor_infos.emplace_back(1, 1.0, 0);
+    motor_infos.emplace_back(0, -1.0, 0);
+    motor_infos.emplace_back(15, -1.0, 0);
+    motor_infos.emplace_back(14, 1.0, 0);
+    motor_infos.emplace_back(13, 1.0, 0);
+    motor_infos.emplace_back(12, -1.0, 0);
+    motor_infos.emplace_back(11, -1.0, 0);
+    motor_infos.emplace_back(10, 1.0, 0);
     motor_infos.emplace_back(6, 1.0, 0);
     motor_infos.emplace_back(7, 1.0, 0);
     motor_infos.emplace_back(8, -1.0, 0);
     motor_infos.emplace_back(9, 1.0, 0);
-    motor_infos.emplace_back(10, 1.0, 0);
-    motor_infos.emplace_back(11, -1.0, 0);
-    motor_infos.emplace_back(12, -1.0, 0);
-    motor_infos.emplace_back(13, 1.0, 0);
-    motor_infos.emplace_back(14, 1.0, 0);
-    motor_infos.emplace_back(15, -1.0, 0);
     motor_infos.emplace_back(16, -1.0, 0);
     motor_infos.emplace_back(17, 1.0, 0);
     motor_infos.emplace_back(18, -1.0, 0);
@@ -80,6 +80,11 @@ int main(int argc, char** argv)
         driver->motors[i].setMixedControlInRad(0, 0, 0, 0, 0);
     }
     driver->update();
+
+    for (auto& thread : driver->driver->m_receive_threads)
+    {
+        thread.join();
+    }
 
     ros::waitForShutdown();
     return 0;
