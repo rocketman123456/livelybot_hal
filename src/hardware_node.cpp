@@ -28,26 +28,26 @@ int main(int argc, char** argv)
 
     // TODO : read from config file
     spdlog::debug("init motors");
-    motor_infos.emplace_back(15, -1.0, 0);
-    motor_infos.emplace_back(14, 1.0, 0);
-    motor_infos.emplace_back(13, 1.0, 0);
-    motor_infos.emplace_back(12, -1.0, 0);
-    motor_infos.emplace_back(11, -1.0, 0);
-    motor_infos.emplace_back(10, 1.0, 0);
-    motor_infos.emplace_back(5, -1.0, 0);
-    motor_infos.emplace_back(4, 1.0, 0);
-    motor_infos.emplace_back(3, -1.0, 0);
-    motor_infos.emplace_back(2, 1.0, 0);
-    motor_infos.emplace_back(1, 1.0, 0);
-    motor_infos.emplace_back(0, -1.0, 0);
-    motor_infos.emplace_back(16, -1.0, 0);
-    motor_infos.emplace_back(17, 1.0, 0);
-    motor_infos.emplace_back(18, -1.0, 0);
-    motor_infos.emplace_back(19, -1.0, 0);
-    motor_infos.emplace_back(6, 1.0, 0);
-    motor_infos.emplace_back(7, 1.0, 0);
-    motor_infos.emplace_back(8, -1.0, 0);
-    motor_infos.emplace_back(9, 1.0, 0);
+    motor_infos.emplace_back(15, -1.0, 0);  // 0
+    motor_infos.emplace_back(14, 1.0, 0);   // 1
+    motor_infos.emplace_back(13, 1.0, 0);   // 2
+    motor_infos.emplace_back(12, -1.0, 0);  // 3
+    motor_infos.emplace_back(11, -1.0, 0);  // 4
+    motor_infos.emplace_back(10, 1.0, 0);   // 5
+    motor_infos.emplace_back(5, -1.0, 0);   // 6
+    motor_infos.emplace_back(4, 1.0, 0);    // 7
+    motor_infos.emplace_back(3, -1.0, 0);   // 8
+    motor_infos.emplace_back(2, 1.0, 0);    // 9
+    motor_infos.emplace_back(1, 1.0, 0);    // 10
+    motor_infos.emplace_back(0, -1.0, 0);   // 11
+    motor_infos.emplace_back(16, -1.0, 0);  // 12
+    motor_infos.emplace_back(17, 1.0, 0);   // 13
+    motor_infos.emplace_back(18, -1.0, 0);  // 14
+    motor_infos.emplace_back(19, -1.0, 0);  // 15
+    motor_infos.emplace_back(6, 1.0, 0);    // 16
+    motor_infos.emplace_back(7, 1.0, 0);    // 17
+    motor_infos.emplace_back(8, -1.0, 0);   // 18
+    motor_infos.emplace_back(9, 1.0, 0);    // 19
     driver->initialize(motor_infos);
 
     // first time init, to make sure motor is ready
