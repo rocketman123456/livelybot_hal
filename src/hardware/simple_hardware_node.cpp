@@ -140,7 +140,7 @@ void SimpleHardwareNode::handleInput(const std_msgs::Float32MultiArray::ConstPtr
 
 void SimpleHardwareNode::prepareJointMsg(sensor_msgs::JointState& msg, std::shared_ptr<HumanoidDriver> driver)
 {
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < 20; ++i)
     {
         auto& motor     = driver->getMotor(i);
         msg.position[i] = motor.getPositionRad();
@@ -151,10 +151,10 @@ void SimpleHardwareNode::prepareJointMsg(sensor_msgs::JointState& msg, std::shar
 
 void SimpleHardwareNode::prepareJointMsg(std_msgs::Float32MultiArray& msg, std::shared_ptr<HumanoidDriver> driver)
 {
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < 20; ++i)
     {
         auto& motor      = driver->getMotor(i);
         msg.data[i]      = motor.getPositionRad();
-        msg.data[i + 10] = motor.getVelocityRad();
+        msg.data[i + 20] = motor.getVelocityRad();
     }
 }
