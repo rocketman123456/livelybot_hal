@@ -48,6 +48,14 @@ target_link_libraries(pino_test
     Eigen3::Eigen
 )
 
+add_executable(ankle_test src/ankle_test.cpp)
+target_link_libraries(ankle_test
+    ${catkin_LIBRARIES}
+    ${pinocchio_LIBRARIES}
+    ${PROJECT_NAME}
+    Eigen3::Eigen
+)
+
 add_executable(hardware_node src/hardware_node.cpp)
 target_link_libraries(hardware_node
     ${catkin_LIBRARIES}
@@ -63,6 +71,10 @@ install(TARGETS ${PROJECT_NAME}
 )
 
 install(TARGETS pino_test
+    RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+)
+
+install(TARGETS ankle_test
     RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
 )
 

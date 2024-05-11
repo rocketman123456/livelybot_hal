@@ -110,16 +110,20 @@ void SimpleHardwareNode::processStep()
 
     // prepate data
     prepareJointMsg(joint_posvel, driver);
-    joint_posvel.data[3] = pos1;
-    joint_posvel.data[9] = pos2;
-    joint_posvel.data[4] = ankle_l_x;
-    joint_posvel.data[5] = ankle_l_y;
+    joint_posvel.data[3]  = pos1;
+    joint_posvel.data[9]  = pos2;
+    joint_posvel.data[4]  = ankle_l_x;
+    joint_posvel.data[5]  = ankle_l_y;
     joint_posvel.data[11] = ankle_r_x;
     joint_posvel.data[10] = ankle_r_y;
 
     prepareJointMsg(joint_state, driver);
     joint_state.position[3]  = pos1;
     joint_state.position[9]  = pos2;
+    joint_state.position[4]      = ankle_l_x;
+    joint_state.position[5]      = ankle_l_y;
+    joint_state.position[11]     = ankle_r_x;
+    joint_state.position[10]     = ankle_r_y;
     joint_state.header.stamp = ros::Time::now();
 
     joint_posvel_pub.publish(joint_posvel);
